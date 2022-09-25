@@ -1,6 +1,14 @@
 import React from "react";
 
 export default function AddTransactionForm() {
+  const [formData, setFormData] = React.useState({
+		date: "",
+		description: "",
+		category: "",
+		amount: null,
+	});
+
+  
   return (
     <div className="ui segment">
       <form className="ui form">

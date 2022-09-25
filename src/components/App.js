@@ -1,37 +1,57 @@
 import React from "react";
 import AccountContainer from "./AccountContainer";
 
-const baseUrl= "http://localhost:8001/transactions";
-
 export default function App() {
-  const [transact, setTransaction] = React.useState([]);
-    React.useEffect(() => {
-      fetchingTransactions();
-  }, [])
+	const [transactions, setTransactions] = React.useState([]);
 
-  const fetchingTransactions = async () => {
-      try {
-        const response = await fetch (baseUrl);
-        const jsonResponse = await response.json();
-        setTransaction(jsonResponse);
-      } catch (error) {
-        console.error(error);
+	React.useEffect(() => {
+		fetchTransactions();
+	}, []);
 
-      };
+	const fetchTransactions = async () => {
+		try {
+			const res = await fetch("http://localhost:8001/transactions");
+			const jsonRes = await res.json();
+			setTransactions(jsonRes);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+	const handleAddTransaction = (transaction) => {
+		setTransactions([...transactions, transaction]);
+	};
+	const handleDeleteTransaction = (transId) => {
+		const filterTransactions = transactions.filter(
+			(trans) => trans.id !== transId
+		);
 
-
-
-
-
-
-    return (
-      <div className="ui raised segment">
-        <div className="ui segment violet inverted">
-          <h2>The Royal Bank of Flatiron</h2>
-        </div>
-        <AccountContainer />
-      </div>
-    );
-  }
-
+		setTransactions(filterTransactions);
+	};
+	const handleSearch = (searchTerm) => {
+		if (searchTerm) {
+			const filteredTransactions = transactions.filter((trans) => {
+				if (trans.description.toLowerCase().match(searchTerm.toLowerCase())) {
+					return true;
+				} else {
+					return false;
+				}
+			});
+			setTransactions(filteredTransactions);
+		} else {
+			fetchTransactions();
+		}
+	};
+	return (
+		<div className="ui raised segment">
+			<div className="ui segment violet inverted">
+				<h2>The Royal Bank of Flatiron</h2>
+			</div>
+			<AccountContainer
+				handleAddTransaction={handleAddTransaction}
+				transactions={transactions}
+				handleSearch={handleSearch}
+				handleDeleteTransaction={handleDeleteTransaction}
+			/>
+		</div>
+	);
 }
