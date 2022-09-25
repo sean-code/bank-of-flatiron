@@ -1,13 +1,12 @@
 import React from "react";
 
-
 // function handleData(event){
 //   event.preventDefault
 
 // }
 
 export default function Search({search, setSearch}) {
-  function handleData(et){
+  function handleData(e){
     setSearch(e.target.value)
   }
   return (
