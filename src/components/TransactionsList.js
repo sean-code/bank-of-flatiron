@@ -1,7 +1,7 @@
 import React from "react";
 import Transaction from "./Transaction";
 
-function TransactionsList() {
+export default function TransactionsList() {
   return (
     <table className="ui celled striped padded table">
       <tbody>
@@ -19,10 +19,10 @@ function TransactionsList() {
             <h3 className="ui center aligned header">Amount</h3>
           </th>
         </tr>
-        {/* render a list of <Transaction> components here */}
+        <Transaction />
       </tbody>
     </table>
   );
 }
 
-export default TransactionsList;
+
