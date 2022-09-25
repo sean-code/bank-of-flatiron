@@ -19,7 +19,7 @@ export default function TransactionsList() {
             <h3 className="ui center aligned header">Amount</h3>
           </th>
         </tr>
-        <Transaction />
+            <Transaction />
       </tbody>
     </table>
   );
