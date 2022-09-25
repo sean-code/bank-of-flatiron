@@ -1,9 +1,9 @@
 import React from "react";
-import TransactionsList from "./TransactionsList";
 import Search from "./Search";
+import TransactionsList from "./TransactionsList";
 import AddTransactionForm from "./AddTransactionForm";
 
-function AccountContainer() {
+export default function AccountContainer() {
   return (
     <div>
       <Search />
@@ -12,5 +12,3 @@ function AccountContainer() {
     </div>
   );
 }
-
-export default AccountContainer;
