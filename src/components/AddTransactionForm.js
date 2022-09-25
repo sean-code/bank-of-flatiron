@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 
-
 export default function AddTransactionForm(handleTransaction) {
   const [formData, setFormData] = useState({
     date: '',
@@ -32,3 +31,4 @@ export default function AddTransactionForm(handleTransaction) {
     </div>
   );
 }
+
