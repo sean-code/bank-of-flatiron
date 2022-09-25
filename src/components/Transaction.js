@@ -1,6 +1,7 @@
 import React from "react";
+import {useEffect} from 'react;'
 
-function Transaction() {
+export default function Transaction() {
   return (
     <tr>
       <td>{"your code here..."}</td>
@@ -11,4 +12,3 @@ function Transaction() {
   );
 }
 
-export default Transaction;
