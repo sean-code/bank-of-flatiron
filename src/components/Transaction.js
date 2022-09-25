@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 
-// const baseUrl= "http://localhost:8001/transactions";
+
 
 export default function Transaction({index, date, category, amount, description}){
-        const isEven= index%2===0
         return (
             <tr >
                 <td>{date}</td>
@@ -35,11 +34,7 @@ export default function Transaction({index, date, category, amount, description}
 
 
 //   
-//   useEffect(() => {
-//     fetch(baseUrl)
-//       .then(res => res.json())
-//       .then(data => setTransaction(data))
-//   }, [])
+
 //     return (
 
 //       {transact.map((transaction,index)=>{
