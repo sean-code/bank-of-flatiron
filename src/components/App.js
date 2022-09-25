@@ -2,6 +2,17 @@ import React from "react";
 import AccountContainer from "./AccountContainer";
 
 export default function App() {
+  const [transact, setTransaction] = useState([])
+
+
+
+
+
+
+
+
+
+
   return (
     <div className="ui raised segment">
       <div className="ui segment violet inverted">
