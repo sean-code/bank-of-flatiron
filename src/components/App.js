@@ -1,6 +1,7 @@
 import React from "react";
 import AccountContainer from "./AccountContainer";
 
+const baseUrl = 'http://localhost:8001/transactions'
 export default function App() {
 	const [transactions, setTransactions] = React.useState([]);
 
@@ -10,9 +11,9 @@ export default function App() {
 
 	const fetchTransactions = async () => {
 		try {
-			const res = await fetch("http://localhost:8001/transactions");
-			const jsonRes = await res.json();
-			setTransactions(jsonRes);
+			const response = await fetch(baseUrl);
+			const jsonResponse = await response.json();
+			setTransactions(jsonResponse);
 		} catch (error) {
 			console.log(error);
 		}
@@ -20,14 +21,14 @@ export default function App() {
 	const handleAddTransaction = (transaction) => {
 		setTransactions([...transactions, transaction]);
 	};
-	const handleDeleteTransaction = (transId) => {
+	const handleTransactionDelete = (transactionId) => {
 		const filterTransactions = transactions.filter(
-			(trans) => trans.id !== transId
+			(transaction) => transactionId.id !== transactionId
 		);
 
 		setTransactions(filterTransactions);
 	};
-	const handleSearch = (searchTerm) => {
+	const handleSearchInput= (searchTerm) => {
 		if (searchTerm) {
 			const filteredTransactions = transactions.filter((trans) => {
 				if (trans.description.toLowerCase().match(searchTerm.toLowerCase())) {
@@ -49,8 +50,8 @@ export default function App() {
 			<AccountContainer
 				handleAddTransaction={handleAddTransaction}
 				transactions={transactions}
-				handleSearch={handleSearch}
-				handleDeleteTransaction={handleDeleteTransaction}
+				handleSearchInput={handleSearchInput}
+				handleTransactionDelete={handleTransactionDelete}
 			/>
 		</div>
 	);

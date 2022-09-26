@@ -11,6 +11,7 @@ export default function Transaction({id, date, category, amount, description},
                 <td>{description}</td>
                 <td>{category}</td>
                 <td>{amount}</td>
+                <td><button onClick={() => transactionDelete(id)}>DELETE</button></td>
             </tr>
         );
 }

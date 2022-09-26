@@ -3,16 +3,16 @@ import Transaction from "./Transaction";
 
 const baseUrl = 'http://localhost:8001/transactions/'
 
-export default function TransactionsList() {
+export default function TransactionsList({transactions, handleTransactionDelete}) {
   const transactionDelete = async (transactionId) => {
 		console.log(transactionId);
 		try {
-			const response = await fetch(baseUrl + transactionId, {
+			await fetch( baseUrl + transactionId, {
 				method: "DELETE",
 			});
-			handleDeleteTransaction(transactionId);
+			handleTransactionDelete(transactionId);
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
   return (
