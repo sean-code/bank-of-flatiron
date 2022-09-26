@@ -4,7 +4,7 @@ import Transaction from "./Transaction";
 const baseUrl = 'http://localhost:8001/transactions/'
 
 export default function TransactionsList() {
-  const deleteTransaction = async (transactionId) => {
+  const transactionDelete = async (transactionId) => {
 		console.log(transactionId);
 		try {
 			const response = await fetch(baseUrl + transactionId, {
@@ -32,7 +32,13 @@ export default function TransactionsList() {
             <h3 className="ui center aligned header">Amount</h3>
           </th>
         </tr>
-            <Transaction />
+				{transactions.map((transaction, index) => (
+					<Transaction
+						key={transaction.id}
+            transactionDelete={transactionDelete}
+						transaction={transaction}
+					/>
+				))}
       </tbody>
     </table>
   );
