@@ -1,7 +1,20 @@
 import React from "react";
 import Transaction from "./Transaction";
 
+const baseUrl = 'http://localhost:8001/transactions/'
+
 export default function TransactionsList() {
+  const deleteTransaction = async (transactionId) => {
+		console.log(transactionId);
+		try {
+			const response = await fetch(baseUrl + transactionId, {
+				method: "DELETE",
+			});
+			handleDeleteTransaction(transactionId);
+		} catch (error) {
+			console.log(error);
+		}
+	};
   return (
     <table className="ui celled striped padded table">
       <tbody>
