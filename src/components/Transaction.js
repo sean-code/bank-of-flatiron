@@ -2,7 +2,9 @@ import React from "react";
 
 
 
-export default function Transaction({index, date, category, amount, description}){
+export default function Transaction({id, date, category, amount, description},
+  transactionDelete,
+  ){
         return (
             <tr >
                 <td>{date}</td>
