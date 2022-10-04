@@ -1,32 +1,57 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 
-export default function AddTransactionForm({onSubmission}) {
-  const [formData, setFormData] = useState({
-    date: "",
+export default function AddTransactionForm() {
+  const [transactionData, setTransactionData] = useState({
+    data: "",
     description: "",
-    category:"",
-    amount:null
+    category: "",
+    amount: "",
   });
-  function handleChange(event){
-    setFormData({
-      ...formData,
+
+  function handleChange(event) {
+    event.preventDefault();
+    setTransactionData({
+      ...transactionData,
       [event.target.name]: event.target.value,
     });
   }
-  function handleSubmit(event){
-    event.preventDefault()
-    onSubmission(formData)
-    
-     
+
+  function handleSubmit() {
+    fetch("http://localhost:3000/transactions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(transactionData),
+    });
   }
   return (
     <div className="ui segment">
-      <form onSubmit={handleSubmit} onChange={handleChange} className="ui form">
+      <form className="ui form" onSubmit={handleSubmit}>
         <div className="inline fields">
-          <input onChange={handleChange} type="date" name="date" />
-          <input onChange={handleChange} type="text" name="description" placeholder="Description" />
-          <input onChange={handleChange}type="text" name="category" placeholder="Category" />
-          <input type="number" name="amount" placeholder="Amount" step="0.01" />
+          <input type="date" name="date" onChange={handleChange} required />
+          <input
+            type="text"
+            name="description"
+            placeholder="Description"
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="category"
+            placeholder="Category"
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="number"
+            name="amount"
+            placeholder="Amount"
+            step="0.01"
+            onChange={handleChange}
+            required
+          />
         </div>
         <button className="ui button" type="submit">
           Add Transaction

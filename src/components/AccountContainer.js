@@ -1,67 +1,32 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import TransactionsList from "./TransactionsList";
 import Search from "./Search";
 import AddTransactionForm from "./AddTransactionForm";
 
-export default function AccountContainer() {
-  const [ transactions,  setTransactions] = useState([]);
+function AccountContainer() {
+  const [query, setQuery] = useState("");
+  const [transaction, setTransaction] = useState([]);
+
   useEffect(() => {
-    fetch("http://localhost:8001/transactions")
+    let url = "http://localhost:3000/transactions"
+    fetch(url)
       .then((response) => response.json())
-      .then((data) => {
-        setTransactions(data);
-      });
-  }, []);
+      .then((data) => setTransaction(data));
+  });
 
-  function handleFormSubmission(newtransactioninput){
-        console.log(newtransactioninput)
-        const configurationData =  {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newtransactioninput),
-        }
-        fetch("http://localhost:8001/transactions",configurationData)
-         .then((response)=>response.json())
-           .then(newItemTRansacted=>setTransactions(transactions=>[...transactions,newItemTRansacted]))
-             .catch((error)=>{console.log(error)})
-  }
-
-  function handleSearch(search){
-       console.log(search)
-       const filterSEarch = transactions.filter((transaction)=>{return transaction.description.toLowerCase().includes(search.toLowerCase()) })
-       
-       setTransactions(filterSEarch)
-       console.log(transactions)
-  }
-  function deleteTrans(transactionid){
-  
-    const  itemToBeRemoved =  transactions[transactionid]
-    
-    const  dataToDelete =  {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      } 
-    }
-    const filterTransactions = transactions.filter(
-			(singletransaction) => singletransaction !== itemToBeRemoved
-		);
-    
-
-
-    fetch(`http://localhost:8001/transactions/${transactionid}`,dataToDelete)
-      .then(()=>setTransactions(filterTransactions))
-         
-      
-  }
-
+  const keys = ["description", "category"];
+  const search = (data) => {
+    return data.filter((item) =>
+      keys.some((key) => item[key].toUpperCase().includes(query))
+    );
+  };
   return (
     <div>
-      <Search onUserSearch={handleSearch}/>
-      <AddTransactionForm onSubmission={handleFormSubmission}/>
-      <TransactionsList  handleDelete={deleteTrans} transactions={transactions}/>
+      <Search input={setQuery} />
+      <AddTransactionForm />
+      <TransactionsList data={search(transaction)} />
     </div>
   );
 }
+
+export default AccountContainer;

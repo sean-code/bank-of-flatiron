@@ -1,22 +1,14 @@
-import React,{useState} from "react";
+import React from "react";
 
-function Search({onUserSearch}) {
-   const [search,setsearch] = useState(" ")
-   function handleChange(event){
-    setsearch(event.target.value)
-     onUserSearch(search)
-   }
+export default function Search({ input }) {
   return (
     <div className="ui large fluid icon input">
-      <input 
-       onChange={handleChange} 
+      <input
         type="text"
         placeholder="Search your Recent Transactions"
-         
+        onChange={(event) => input(event.target.value.toLocaleUpperCase())}
       />
-      <i onClick={handleChange} className="circular search link icon"></i>
+      <i className="circular search link icon"></i>
     </div>
   );
 }
-
-export default Search;

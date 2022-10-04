@@ -1,21 +1,17 @@
-import React  from "react";
+import React from "react";
 
-function Transaction({date,description,category,amount,id,onDeleteKey}) {
-  
-  function deleteTransaction(event){
-    
-    onDeleteKey(event.target.id)
-  
-  }
+export default function Transaction({ item }) {
   return (
-    <tr key={id}>
-      <td>{date}</td>
-      <td>{description}</td>
-      <td>{category}</td>
-      <td>{amount}</td>
-      <td><button id={id} onClick={deleteTransaction}>Delete</button></td>
-  </tr>
+    <div>
+      {item.map((data) => (
+        <tr key={data.id}>
+          <td>{data.date}</td>
+          <td>{data.description}</td>
+          <td>{data.category}</td>
+          <td>{data.amount}</td>
+        </tr>
+      ))}
+    </div>
   );
 }
 
-export default Transaction;
