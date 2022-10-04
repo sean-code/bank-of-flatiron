@@ -1,7 +1,7 @@
 import React from "react";
 import AccountContainer from "./AccountContainer";
 
-export default function App() {
+function App() {
   return (
     <div className="ui raised segment">
       <div className="ui segment violet inverted">
@@ -11,3 +11,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;

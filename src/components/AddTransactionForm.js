@@ -1,33 +1,64 @@
 import React, { useState } from "react";
 
-export default function AddTransactionForm({addTransaction}) {
-  const [transactionData, setTransactionData] = useState({
-    data: "",
-    description: "",
-    category: "",
-    amount: 0
-  });
+  
+function AddTransactionForm({onAddTransaction}) {
+  const [date,setDate]= useState("")
+  const [description,setDescription]= useState("")
+  const [category,setCategory]= useState("")
+  const [amount,setAmount]= useState("")
+ 
+  const data ={
+    date:date,
+    description:description,
+    category:category,
+    amount:parseFloat(amount),
+  };
+  
+  function handleSubmit(e){
+    e.reset.value();
 
-  function handleChange(event) {
-    event.preventDefault();
-    setTransactionData({
-      ...transactionData,
-      [event.target.name]: event.target.value,
-    });
-  }
+    fetch("http://localhost:8001/transactions", { 
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+   .then(res => res.json())
+   .then(newTransaction=> {
+          onAddTransaction(newTransaction)} );
+      }
 
-  function handleSubmit(event){
-    event.preventDefault()
-    addTransaction(transactionData)
-  }
+    
+  
+
   return (
     <div className="ui segment">
-      <form className="ui form" onSubmit={handleSubmit}>
+      <form className="ui form" onSubmit={handleSubmit}  >
         <div className="inline fields">
-          <input type="date" name="date" onChange={handleChange} />
-          <input type="text" name="description" placeholder="Description" onChange={handleChange} />
-          <input type="text" name="category" placeholder="Category" onChange={handleChange} required />
-          <input type="number" name="amount" placeholder="Amount" step="0.01" onChange={handleChange} />
+          <input
+           type="date" 
+           name="date" 
+           value={date}
+          onChange={(e) => setDate(e.target.value)}
+          />
+          <input 
+          type="text" 
+          name="description" 
+          placeholder="Description" 
+          onChange={(e) => setDescription(e.target.value)}
+          />
+          <input 
+          type="text" 
+          name="category" 
+          placeholder="Category" 
+          onChange={(e) => setCategory(e.target.value)}
+          />
+          <input 
+          type="number" 
+          name="amount" 
+          placeholder="Amount" 
+          step="0.01" 
+          onChange={(e) => setAmount(e.target.value)}
+          />
         </div>
         <button className="ui button" type="submit">
           Add Transaction
@@ -36,3 +67,5 @@ export default function AddTransactionForm({addTransaction}) {
     </div>
   );
 }
+
+export default AddTransactionForm;
