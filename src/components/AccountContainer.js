@@ -8,13 +8,14 @@ function AccountContainer() {
   const [transaction, setTransaction] = useState([]);
 
   useEffect(() => {
-    let url = "http://localhost:3000/transactions"
+    let url = "http://localhost:8000/transactions"
     fetch(url)
       .then((response) => response.json())
       .then((data) => setTransaction(data));
   });
 
   const keys = ["description", "category"];
+
   const search = (data) => {
     return data.filter((item) =>
       keys.some((key) => item[key].toUpperCase().includes(query))

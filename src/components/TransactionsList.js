@@ -20,7 +20,10 @@ function TransactionsList({data}) {
           </th>
         </tr>
         {/* render a list of <Transaction> components here */}
-        <Transaction item={data}/>
+        {data.map((transact)=>(
+          <Transaction key={transact.id} date={transact.date} description={transact.description}
+          category={transact.category} amount={transact.amount}/>
+        ))}
       </tbody>
     </table>
   );
